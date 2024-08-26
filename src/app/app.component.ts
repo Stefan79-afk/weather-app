@@ -9,6 +9,5 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
- date: Date = new Date();
- 
+  
 }
