@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 
 import { DatePipe } from '@angular/common';
 import { UserLocationService } from '../user-location.service';
+import { apiKey } from '../environment';
 
 @Component({
   selector: 'app-home',
@@ -12,14 +13,19 @@ import { UserLocationService } from '../user-location.service';
 })
 export class HomeComponent {
   date: Date = new Date();
+
+  latitude: number | undefined = undefined;
+  longitude: number | undefined = undefined;
+  positionError: string | undefined = undefined;
+
   userLocationService: UserLocationService = inject(UserLocationService);
 
   ngOnInit(): void {
     this.userLocationService.getUserLocation()
     .then((position: number[]) => {
-      const [latitude, longitude] = position;
-      console.log(`Your latitude is ${latitude}`);
-      console.log(`Your longitutde is ${longitude}`)
+      [this.latitude, this.longitude] = position;
+      console.log(`Your latitude is ${this.latitude}`);
+      console.log(`Your longitutde is ${this.longitude}`)
     })
     .catch( ( error: Error | GeolocationPositionError ) => {
       if(error instanceof GeolocationPositionError) {
@@ -27,6 +33,7 @@ export class HomeComponent {
       }
 
       console.log(error.message);
+      this.positionError = error.message;
     });
   }
 }

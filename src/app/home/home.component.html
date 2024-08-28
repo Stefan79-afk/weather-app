@@ -1,3 +1,13 @@
 <h1 class="main-title">Welcome</h1>
 <h2 class="weather-title">Date: {{date | date:'fullDate'}}</h2>
 
+@if(!positionError && !latitude && !longitude) {
+    <h2 class="weather-title"> Loading position... </h2>
+} 
+@else if (!latitude && !longitude && positionError) {
+    <h2 class="weather-title">{{positionError}}</h2>
+}
+@else if (latitude && longitude && !positionError) {
+    <h2 class="weather-title">Your latitude is: {{latitude}}</h2>
+    <h2 class="weather-title">Your longitude is: {{longitude}}</h2>
+}
