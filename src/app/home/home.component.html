@@ -1,22 +1,18 @@
 <h1 class="main-title">Welcome</h1>
 <h2 class="weather-title">Date: {{date | date:'fullDate'}}</h2>
 
-@if (weatherInfo$ | async; as weather) {
-    <h2 class="weather-title">Location: {{weather.location.name}}</h2>
-    <h2 class="weather-title">Temperature (Celsius): {{weather.current.temp_c}} degrees</h2>
+@if (weatherData && loading === false) {
+    <h2 class="weather-title">Location: {{weatherData.location.name}}</h2>
+    <h2 class="weather-title">Temperature (Celsius): {{weatherData.current.temp_c}} degrees</h2>
     <div class="img-container">
-        <img class="img" src={{weather.current.condition.icon}} alt={{weather.current.condition.text}} />
+        <img class="img" src={{weatherData.current.condition.icon}} alt={{weatherData.current.condition.text}} />
     </div>
 } 
 
-@else if (!latitude && !longitude && positionError === 'User denied Geolocation') {
-    <h2 class="weather-title">Please enable location services in order to get local weather automatically</h2>
+@if (errorMessage && loading === false) {
+    <h2 class="weather-title">{{errorMessage}}</h2>
 }
 
-@else if(!latitude && !longitude || latitude && longitude && weatherInfo$) {
+@else if(loading) {
     <h2 class="weather-title">Loading...</h2>
-}
-
-@else {
-    <h2 class="weather-title">Something went wrong. Please try again</h2>
 }

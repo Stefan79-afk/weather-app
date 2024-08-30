@@ -1,11 +1,9 @@
 import { Component, inject } from '@angular/core';
 
-import { DatePipe } from '@angular/common';
+import { DatePipe, AsyncPipe } from '@angular/common';
 import { UserLocationService } from '../user-location.service';
-import { Observable } from 'rxjs';
 import { WeatherServiceService } from '../weather-service.service';
 import { Current } from '../current';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -17,31 +15,51 @@ import { AsyncPipe } from '@angular/common';
 export class HomeComponent {
   date: Date = new Date();
 
-  latitude: number | undefined = undefined;
-  longitude: number | undefined = undefined;
-  positionError: string | undefined = undefined;
-
-  weatherInfo$!: Observable<any>;
+  weatherData!: Current;
+  errorMessage: string | undefined;
+  loading: boolean = true;
 
   userLocationService: UserLocationService = inject(UserLocationService);
   weatherService: WeatherServiceService = inject(WeatherServiceService);
 
   ngOnInit(): void {
     this.userLocationService.getUserLocation()
-    .then((position: number[]) => {
-      [this.latitude, this.longitude] = position;
-      debugger;
-      console.log(`Your latitude is ${this.latitude}`);
-      console.log(`Your longitutde is ${this.longitude}`)
-      this.weatherInfo$ = this.weatherService.getWeatherForCoordonates(this.latitude, this.longitude);
-    })
-    .catch( ( error: Error | GeolocationPositionError ) => {
-      if(error instanceof GeolocationPositionError) {
-        console.log(error.code);
-      }
+    .then(this.handleGeolocationSuccess.bind(this))
+    .catch(this.handleGeolocationError.bind(this));
+  };
 
-      console.log(error.message);
-      this.positionError = error.message;
-    });
+  handleGeolocationSuccess(position: number[]): void {
+    const [latitude, longitude] = position;
+    this.weatherService.getWeatherForCoordonates(latitude, longitude)
+    .subscribe(this.handleWeatherFetchSuccess.bind(this));
+  };
+
+  handleGeolocationError(error: Error | GeolocationPositionError): void {
+    if("code" in error) {
+      switch(error.code) {
+        case 1:
+          this.errorMessage = "Geolocation blocked by the browser. Please enable location services and try again.";
+          break;
+        case 2:
+          this.errorMessage = "Couldn't get your location. Please try again.";
+          break;
+        case 3:
+          this.errorMessage = "Couldn't get your location in time. Please try again.";
+          break;
+        default:
+          this.errorMessage = `Something else went wrong: ${error.message}`;
+      }
+    } else {
+      this.errorMessage = error.message;
+    }
+
+    this.loading = false;
+  };
+
+  handleWeatherFetchSuccess(weatherData: Current) {
+    this.weatherData = weatherData;
+    this.loading = false;
   }
+
 }
+

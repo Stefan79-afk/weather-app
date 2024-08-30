@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 import { apiKey, currentWeatherUrl } from './environment';
+import { Current } from './current';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +11,12 @@ export class WeatherServiceService {
 
   httpClient: HttpClient = inject(HttpClient);
   constructor() { }
-  getWeatherForCoordonates(latitude: number, longitude: number): Observable<any> {
+  getWeatherForCoordonates(latitude: number, longitude: number): Observable<Current> {
     return this.httpClient.get<any>(`${currentWeatherUrl}`, {
       params: {
         key: apiKey,
         q: `${latitude},${longitude}`
       }
-    });
+    })
   }
 }
