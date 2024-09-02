@@ -1,0 +1,17 @@
+
+<div class="weather-list-container">
+    <ul class="weather-list">
+        <li>Wind Speed: {{weatherInfo.current.wind_kph || '0'}} kilometers per hour</li>
+        <li>Pressure: {{weatherInfo.current.pressure_mb || '0'}} meters bar</li>
+        <li>Precipication: {{weatherInfo.current.precip_mm || '0'}} milimeters</li>
+        <li>Humidity: {{weatherInfo.current.humidity || '0'}}%</li>
+        <li>Feels like: {{weatherInfo.current.feelslike_c || '0'}} degrees Celsius</li>
+        <li>Heat index: {{weatherInfo.current.heatindex_c || '0'}} degrees Celsius</li>
+        <li>Dew point: {{weatherInfo.current.dewpoint_c || '0'}} degress Celsius</li>
+        <li>Vis: {{weatherInfo.current.vis_km || '0'}} kilometers</li>
+        <li>UV: {{weatherInfo.current.uv || '0'}}</li>
+        <li>Gust: {{weatherInfo.current.gust_kph || '0'}} kilometers per hour</li>
+    </ul>
+</div>
+
+

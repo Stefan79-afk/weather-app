@@ -7,10 +7,12 @@ import { Current } from '../current';
 import { catchError, Observable, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
+import { LocataionWeatherComponent } from '../location-weather/location-weather.component';
+
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [DatePipe, AsyncPipe],
+  imports: [DatePipe, AsyncPipe, LocataionWeatherComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

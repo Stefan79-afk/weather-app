@@ -7,6 +7,7 @@
     <div class="img-container">
         <img class="img" src={{weatherData.current.condition.icon}} alt={{weatherData.current.condition.text}} />
     </div>
+    <app-location-weather [weatherInfo]="weatherData" />
 } 
 
 @if (errorMessage && loading === false) {

@@ -1,0 +1,12 @@
+.weather-list {
+    list-style: none;
+    color: white;
+    font-size: 2rem;
+}
+
+.weather-list-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
