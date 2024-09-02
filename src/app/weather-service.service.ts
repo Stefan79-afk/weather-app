@@ -1,6 +1,6 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { catchError, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { apiKey, currentWeatherUrl } from './environment';
 import { Current } from './current';
 

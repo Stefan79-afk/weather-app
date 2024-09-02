@@ -4,6 +4,8 @@ import { DatePipe, AsyncPipe } from '@angular/common';
 import { UserLocationService } from '../user-location.service';
 import { WeatherServiceService } from '../weather-service.service';
 import { Current } from '../current';
+import { catchError, Observable, throwError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -31,6 +33,9 @@ export class HomeComponent {
   handleGeolocationSuccess(position: number[]): void {
     const [latitude, longitude] = position;
     this.weatherService.getWeatherForCoordonates(latitude, longitude)
+    .pipe(
+      catchError(this.handleWeatherFetchFailure.bind(this))
+    )
     .subscribe(this.handleWeatherFetchSuccess.bind(this));
   };
 
@@ -59,6 +64,18 @@ export class HomeComponent {
   handleWeatherFetchSuccess(weatherData: Current) {
     this.weatherData = weatherData;
     this.loading = false;
+  }
+
+  handleWeatherFetchFailure(error: HttpErrorResponse, caught: Observable<Current>): Observable<Current> {
+    if(error.statusText === "Unknown Error") {
+      this.errorMessage = "We couldn't get the weather data for your location. Please try again later."
+    }
+    else {
+      this.errorMessage = error.message;
+    }
+    
+    this.loading = false;
+    return throwError(() => new Error(error.message));
   }
 
 }
