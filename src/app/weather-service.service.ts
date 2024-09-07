@@ -17,6 +17,6 @@ export class WeatherServiceService {
         key: apiKey,
         q: `${latitude},${longitude}`
       }
-    })
+    });
   }
 }

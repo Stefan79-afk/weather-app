@@ -16,7 +16,6 @@ describe('UserLocationService', () => {
   });
 
   it("should get the correct userlocation", async () => {
-    debugger;
     const expectedLatitude = 20;
     const expectedLongitude = 20;
 
@@ -37,8 +36,6 @@ describe('UserLocationService', () => {
     });
 
     const [actualLatitude, actualLongitude] = await service.getUserLocation();
-    console.log(actualLatitude);
-    console.log(actualLongitude);
     expect(actualLatitude).toBe(expectedLatitude);
     expect(actualLongitude).toBe(expectedLongitude);
   });
