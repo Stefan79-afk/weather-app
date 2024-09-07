@@ -3,6 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 
 import { formatDate } from '@angular/common';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -11,7 +14,11 @@ describe('HomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HomeComponent]
+      imports: [HomeComponent],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting()
+      ]
     })
     .compileComponents();
 
@@ -33,11 +40,9 @@ describe('HomeComponent', () => {
   });
 
   it("should have the correct date title", () => {
-    debugger;
     const dateTitle = componentElement.querySelector("h2");
     expect(dateTitle).toBeTruthy();
     expect(dateTitle?.tagName).toEqual("H2");
     expect(dateTitle?.innerHTML).toEqual(`Date: ${formatDate(new Date(), "fullDate", "en-US")}`);
-
   });
 });
