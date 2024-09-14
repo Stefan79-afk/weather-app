@@ -55,7 +55,7 @@ describe('HomeComponent', () => {
     expect(dateTitle?.innerHTML).toEqual(`Date: ${formatDate(new Date(), "fullDate", "en-US")}`);
   });
 
-  // TODO: fix this test
+  // this test is kinda funky
 
   it("should have the correct location and temperature titles", fakeAsync(() => {
     const mockCurrentData: Current = mockCurrent;
@@ -85,4 +85,22 @@ describe('HomeComponent', () => {
 
     httpTestingController.verify();
   }));
+
+  it("should show loading initially", () => {
+    const elements = componentElement.querySelectorAll("h2");
+    const loadingElement = elements.item(elements.length - 1);
+    expect(loadingElement.textContent).toBe("Loading...");
+    expect(loadingElement.tagName).toBe("H2");
+  });
+
+  it("should show error message", () => {
+    component.errorMessage = "Test error";
+    component.loading = false;
+
+    fixture.detectChanges();
+    const elements = componentElement.querySelectorAll("h2");
+    const errorElement = elements.item(elements.length - 1);
+    expect(errorElement.textContent).toBe("Test error");
+    expect(errorElement.tagName).toBe("H2");
+  });
 });
