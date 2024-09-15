@@ -1,0 +1,16 @@
+.weather-title {
+    color: white;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.img {
+    width: 10rem;
+    height: auto;
+}
+
+.img-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

@@ -1,0 +1,16 @@
+@if (weatherInfo && loading === false) {
+    <h2 class="weather-title">Location: {{weatherInfo.location.name}}</h2>
+    <h2 class="weather-title">Temperature (Celsius): {{weatherInfo.current.temp_c}} degrees</h2>
+    <div class="img-container">
+        <img class="img" src={{weatherInfo.current.condition.icon}} alt={{weatherInfo.current.condition.text}} />
+    </div>
+    <app-location-weather [weatherInfo]="weatherInfo" />
+} 
+
+@if (error && loading === false) {
+    <h2 class="weather-title">{{error}}</h2>
+}
+
+@else if(loading) {
+    <h2 class="weather-title">Loading...</h2>
+}

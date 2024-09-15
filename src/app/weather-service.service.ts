@@ -19,4 +19,13 @@ export class WeatherServiceService {
       }
     });
   }
+
+  getWeatherForCityName(cityName: string): Observable<Current> {
+    return this.httpClient.get<any>(`${currentWeatherUrl}`, {
+      params: {
+        key: apiKey,
+        q: cityName
+      }
+    });
+  }
 }
