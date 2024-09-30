@@ -18,6 +18,7 @@ export class CitySearchComponent {
   cities: Search[] = [];
   noResultsMessage: string = "";
   value: string = "";
+  error: string = "";
 
   onSearch(value: string) {
     console.log(value);
@@ -36,7 +37,6 @@ export class CitySearchComponent {
   }
 
   handleSearchFetchSuccess(searchData: Search[]) {
-    console.log(searchData)
     if(searchData.length === 0) {
       this.noResultsMessage = `Couldn't find any cities with the name ${this.value}`
     } else {
@@ -45,7 +45,7 @@ export class CitySearchComponent {
   }
 
   handleSearchFetchFailure(error: HttpErrorResponse, caught: Observable<Search[]>): Observable<Search[]> {
-    console.log(error);
+    this.error = error.message;
     return throwError(() => new Error(error.message));
   }
 

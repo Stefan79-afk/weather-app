@@ -13,5 +13,15 @@
 
 .city-link {
     text-decoration: none;
-    color: lightblue; 
+    color: #3492eb;
+    font-size: 1.3rem;
+}
+
+ul {
+    list-style: none; 
+}
+
+.not-found-message {
+    font-size: 1.4rem;
+    color: white;
 }
