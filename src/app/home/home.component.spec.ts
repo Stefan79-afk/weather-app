@@ -23,7 +23,7 @@ describe('HomeComponent', () => {
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
-        WeatherServiceService
+        WeatherServiceService,
       ]
     })
     .compileComponents();
@@ -78,7 +78,7 @@ describe('HomeComponent', () => {
 
     const h2Elements = componentElement.querySelectorAll('h2');
     const locationElement = h2Elements[1];
-    const temperatureElement = h2Elements[2];
+    const temperatureElement = h2Elements[3];
 
     expect(locationElement.textContent).toContain(`Location: ${mockCurrentData.location.name}`);
     expect(temperatureElement.textContent).toContain(`Temperature (Celsius): ${mockCurrentData.current.temp_c} degrees`);

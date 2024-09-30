@@ -33,7 +33,6 @@ export class CityWeatherComponent implements OnInit {
   }
 
   handleWeatherFetchSuccess(data: Current) {
-    console.log(data);
     this.weatherInfo = data;
     this.loading = false;
   }

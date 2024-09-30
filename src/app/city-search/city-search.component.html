@@ -1,0 +1,14 @@
+<label for="citysearch" class="city-search-label">Search for a city</label>
+<input id="citysearch" class="city-search" type="text" #searchField (change)="onSearch(searchField.value)"/> 
+
+@if(cities.length > 0) {
+    <ul>
+        @for (city of cities; track $index) {
+            <li>
+                <a class="city-link" [routerLink]="'/city/'+ city.name">{{city.name}}, {{city.country}}</a>
+            </li>
+        }
+    </ul>
+} @else if (cities.length === 0 && noResultsMessage) {
+    <p>{{noResultsMessage}}</p>
+}

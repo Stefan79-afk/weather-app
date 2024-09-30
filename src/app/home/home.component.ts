@@ -8,11 +8,12 @@ import { catchError, Observable, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { LocataionWeatherComponent } from '../location-weather/location-weather.component';
+import { CitySearchComponent } from "../city-search/city-search.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [DatePipe, AsyncPipe, LocataionWeatherComponent],
+  imports: [DatePipe, AsyncPipe, LocataionWeatherComponent, CitySearchComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

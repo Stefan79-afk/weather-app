@@ -1,8 +1,12 @@
 <h1 class="main-title">Welcome</h1>
 <h2 class="weather-title">Date: {{date | date:'fullDate'}}</h2>
+<div class="center">
+    <app-city-search ></app-city-search>
+</div>
 
 @if (weatherData && loading === false) {
     <h2 class="weather-title">Location: {{weatherData.location.name}}</h2>
+    <h2 class="weather-title">Country: {{weatherData.location.country}}</h2>
     <h2 class="weather-title">Temperature (Celsius): {{weatherData.current.temp_c}} degrees</h2>
     <div class="img-container">
         <img class="img" src={{weatherData.current.condition.icon}} alt={{weatherData.current.condition.text}} />
@@ -17,3 +21,5 @@
 @else if(loading) {
     <h2 class="weather-title">Loading...</h2>
 }
+
+

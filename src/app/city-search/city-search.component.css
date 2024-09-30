@@ -1,0 +1,17 @@
+.city-search {
+    background-color: black;
+    color: white;
+    height: 2rem;
+    width: 20rem;
+}
+
+.city-search-label {
+    display: block;
+    font-size: 1.4rem;
+    color: white;
+}
+
+.city-link {
+    text-decoration: none;
+    color: lightblue; 
+}
